@@ -52,7 +52,11 @@ if __name__ == "__main__":
     logging.getLogger("requests.packages.urllib3.connectionpool").setLevel(logging.ERROR)
     producers = []
     consumers = []
-    sites = ["bing", "iciba", "youdao"]
+    sites = [
+        "bing",
+        "iciba",
+        "youdao"
+    ]
     for s in sites:
         dir = os.path.join("downloads", s)
         if not os.path.isdir(dir):

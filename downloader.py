@@ -13,7 +13,7 @@ DOWNLOADS = "downloads"
 class Base():
     __DIR__ = None
     __URL__ = None
-
+    __SESSION__ = requests.Session()
     def fetch(self, word):
         file_name = os.path.join(self.__DIR__, word + ".html")
         if os.path.isfile(file_name):
@@ -22,10 +22,11 @@ class Base():
         headers = {}
         headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) Apple" \
                                 "WebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36"
-        r = requests.get(url, headers=headers, timeout=20, allow_redirects=False)
+        r = self.__SESSION__.get(url, headers=headers, timeout=20, allow_redirects=False)
         logging.info("real_url: " + r.url)
-        with open(file_name, "wb") as fw:
-            fw.write(r.text.encode("utf-8"))
+        if r.status_code == 200:
+            with open(file_name, "wb") as fw:
+                fw.write(r.text.encode("utf-8"))
 
 class Bing(Base):
     __DIR__ = os.path.join(DOWNLOADS, "bing")
