@@ -9,6 +9,8 @@ from multiprocessing import Process, Queue
 
 from downloader import *
 
+DOWNLOADS = "downloads"
+
 handle_table = dict(
     bing=Bing(),
     iciba=ICiBa(),
@@ -22,9 +24,13 @@ queue_table = dict(
 def produce_word(site):
     in_name = os.path.join("input", "temp.txt")
     q = queue_table[site]
+    dir_ = os.path.join(DOWNLOADS, site)
     with open(in_name, "rb") as fin:
         for w in fin:
             w = w.strip().decode("utf-8")
+            file_name = os.path.join(dir_, w + ".html")
+            if os.path.isfile(file_name):
+                continue
             logging.info("put word: %s on site: %s's queue" %(w, site))
             q.put(w)
     q.put("&end&")

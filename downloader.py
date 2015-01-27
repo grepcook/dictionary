@@ -16,8 +16,6 @@ class Base():
     __SESSION__ = requests.Session()
     def fetch(self, word):
         file_name = os.path.join(self.__DIR__, word + ".html")
-        if os.path.isfile(file_name):
-            return
         url = self.__URL__.format(word=word)
         headers = {}
         headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) Apple" \

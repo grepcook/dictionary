@@ -3,14 +3,11 @@
 fin1 = open("dictionary.txt", "r")
 fin2 = open("words.txt", "r")
 word_set = set()
-def add_word(w):
-    word_set.add(w)
-    word_set.add(w.replace(w[0], w[0].upper(), 1))
-for w in fin1:
-    add_word(w)
 
+for w in fin1:
+    word_set.add(w.lower())
 for w in fin2:
-    add_word(w)
+    word_set.add(w.lower())
 
 print (len(word_set))
 
