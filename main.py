@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import logging
+import traceback
 import time
 import os
 import os.path
@@ -40,7 +41,10 @@ def fetch_process(site):
             break
         time.sleep(1)
         logging.info("fetching word: %s on site: %s" %(w, site))
-        s.fetch(w)
+        try:
+            s.fetch(w)
+        except Exception as e:
+            traceback.print_exc()
     logging.info("completely fetched all words from site: %s" % (site, ))
 
 
