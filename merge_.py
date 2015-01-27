@@ -12,7 +12,7 @@ for w in fin1:
 for w in fin2:
     add_word(w)
 
-print len(word_set)
+print (len(word_set))
 
 lw = list(word_set)
 lw.sort()
